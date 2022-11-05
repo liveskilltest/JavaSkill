@@ -1,12 +1,3 @@
-/*!
-    * Start Bootstrap - SB Admin v7.0.5 (https://startbootstrap.com/template/sb-admin)
-    * Copyright 2013-2022 Start Bootstrap
-    * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-sb-admin/blob/master/LICENSE)
-    */
-// 
-// Scripts
-// 
-
 function bodyLoad(){
 
     // Toggle the side navigation
@@ -37,11 +28,12 @@ $("ul.treeRoot li span").on("click", function () {
 
 function loadFile(filaname) {
 
-
+    alert(filaname)
     $.ajax({
         type:    "GET",
         url:     filaname,
         success: function(text) {
+            alert(text)
             document.getElementById("fileBody").innerHTML = text
         },
         error:   function() {
