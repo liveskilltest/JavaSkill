@@ -7,6 +7,11 @@
 // Scripts
 // 
 
+var editor = CodeMirror.fromTextArea(document.getElementById("fileBody"), {
+    lineNumbers: true,
+    matchBrackets: true
+});
+
 function bodyLoad(){
 
     // Toggle the side navigation
@@ -37,12 +42,11 @@ $("ul.treeRoot li span").on("click", function () {
 
 function loadFile(filaname) {
 
-    alert(filaname)
+
     $.ajax({
         type:    "GET",
         url:     filaname,
         success: function(text) {
-            alert(text)
             document.getElementById("fileBody").innerHTML = text
         },
         error:   function() {
