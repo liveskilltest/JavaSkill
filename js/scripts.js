@@ -38,15 +38,18 @@ $("ul.treeRoot li span").on("click", function () {
 function loadFile(filaname) {
 
     alert(filaname)
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            document.getElementById('placeholder').innerHTML = xhr.responseText;
+    $.ajax({
+        type:    "GET",
+        url:     filaname,
+        success: function(text) {
+            alert(text)
+            document.getElementById("fileBody").innerHTML = text
+        },
+        error:   function() {
+            // An error occurred
         }
-    }
-    xhr.open('GET', filaname);
-    xhr.send();
-    alert(xhr)
-    document.getElementById("fileBody").innerHTML = xhr.responseText
+    });
+
+    
 
 }
