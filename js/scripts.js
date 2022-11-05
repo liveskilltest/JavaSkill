@@ -28,12 +28,10 @@ $("ul.treeRoot li span").on("click", function () {
 
 function loadFile(filaname) {
 
-    alert(filaname)
     $.ajax({
         type:    "GET",
         url:     filaname,
         success: function(text) {
-            alert(text)
             document.getElementById("fileBody").innerHTML = text
         },
         error:   function() {
