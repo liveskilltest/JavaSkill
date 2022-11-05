@@ -7,10 +7,7 @@
 // Scripts
 // 
 
-var editor = CodeMirror.fromTextArea(document.getElementById("fileBody"), {
-    lineNumbers: true,
-    matchBrackets: true
-});
+
 
 function bodyLoad(){
 
@@ -48,6 +45,10 @@ function loadFile(filaname) {
         url:     filaname,
         success: function(text) {
             document.getElementById("fileBody").innerHTML = text
+            var editor = CodeMirror.fromTextArea(document.getElementById("fileBody"), {
+                lineNumbers: true,
+                matchBrackets: true
+            });
         },
         error:   function() {
             // An error occurred
