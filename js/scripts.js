@@ -46,6 +46,7 @@ function loadFile(filaname) {
     }
     xhr.open('GET', filaname);
     xhr.send();
+    alert(xhr)
     document.getElementById("fileBody").innerHTML = xhr.responseText
 
 }
