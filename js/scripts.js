@@ -1,4 +1,20 @@
-function bodyLoad(){
+function bodyLoad() {
+    var userIp
+    $.get("https://ipinfo.io", function(response) {
+        userIp = response.ip
+    }, "json")
+
+    if (sessionStorage.getItem('sessionID') == 1) {
+        document.getElementById("contentDiv").innerHTML = "<h1> Session Expired <h1> </hr> <h2> Please refrain from accessing this site</h2> </br>"
+        alert("Session Expired")
+    }
+    else {
+        sessionStorage.setItem('sessionID', '1');
+    }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const myParam = urlParams.get('candidateID');
+    alert(myParam)
 
     // Toggle the side navigation
     const sidebarToggle = document.body.querySelector('#sidebarToggle');
@@ -29,16 +45,16 @@ $("ul.treeRoot li span").on("click", function () {
 function loadFile(filaname) {
 
     $.ajax({
-        type:    "GET",
-        url:     filaname,
-        success: function(text) {
+        type: "GET",
+        url: filaname,
+        success: function (text) {
             document.getElementById("fileBody").innerHTML = text
         },
-        error:   function() {
+        error: function () {
             // An error occurred
         }
     });
 
-    
+
 
 }

@@ -71,8 +71,8 @@
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active">All The Best !!</li>
                     </ol>
-                    <div class="row">
-                        <div class="col-xl-2 col-md-4">
+                    <div class="row" id="contentDiv">
+                        <div class="col-xl-3 col-md-3">
                             <div class="card bg-grey text-white mb-4">
                                 <ul class="treeRoot" style="cursor: pointer;">
                                     <li class="hasSubMenu"><span>customerDetails_Repo</span>
@@ -110,9 +110,67 @@
 
                             </div>
                         </div>
-                        <div class="col-xl-4 col-md-8" >
+                        <div class="col-xl-8 col-md-8" >
                             <pre class="card bg-grey2 text-white mb-4" id="fileBody" contenteditable="true">
-                                
+import java.math.BigDecimal;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.core.env.Environment;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+ 
+@SpringBootApplication
+@RestController
+// The @RestController annotation in Spring is essentially
+// just a combination of
+// @Controller and @ResponseBody. This annotation was added
+// during Spring 4.0 to remove the redundancy of declaring
+// the @ResponseBody annotation in your controller
+public class CurrencyExchangeSampleController {
+    @Autowired private Environment environment;
+ 
+    @GetMapping(
+        "/currency-exchange-sample/fromCurrency/{fromCurrency}/toCurrency/{toCurrency}")
+    // where {fromCurrency} and {toCurrency} are path
+    // variable
+    // fromCurrency can be USD,EUR,AUD,INR and toCurrency
+    // can be the opposite of any fromCurrency
+    public ExchangeValue
+    retrieveExchangeValue(@PathVariable String fromCurrency,
+                          @PathVariable String toCurrency)
+    {
+        // Here we need to write all of our business logic
+        BigDecimal conversionMultiple = null;
+        ExchangeValue exchangeValue = new ExchangeValue();
+        if (fromCurrency != null && toCurrency != null) {
+            if (fromCurrency.equalsIgnoreCase("USD")
+                && toCurrency.equalsIgnoreCase("INR")) {
+                conversionMultiple = BigDecimal.valueOf(78);
+            }
+            if (fromCurrency.equalsIgnoreCase("INR")
+                && toCurrency.equalsIgnoreCase("USD")) {
+                conversionMultiple
+                    = BigDecimal.valueOf(0.013);
+            }
+            if (fromCurrency.equalsIgnoreCase("EUR")
+                && toCurrency.equalsIgnoreCase("INR")) {
+                conversionMultiple = BigDecimal.valueOf(82);
+            }
+            if (fromCurrency.equalsIgnoreCase("AUD")
+                && toCurrency.equalsIgnoreCase("INR")) {
+                conversionMultiple = BigDecimal.valueOf(54);
+            }
+        }
+        // setting the port
+        exchangeValue = new ExchangeValue(
+            1000L, fromCurrency, toCurrency,
+            conversionMultiple);
+        exchangeValue.setPort(Integer.parseInt(
+            environment.getProperty("local.server.port")));
+        return exchangeValue;
+    }
+}
                             </pre>
                             
                         </div>
@@ -120,18 +178,7 @@
 
                 </div>
             </main>
-            <footer class="py-4 bg-light mt-auto">
-                <div class="container-fluid px-4">
-                    <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Your Website 2022</div>
-                        <div>
-                            <a href="#">Privacy Policy</a>
-                            &middot;
-                            <a href="#">Terms &amp; Conditions</a>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
