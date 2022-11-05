@@ -7,7 +7,7 @@
 // Scripts
 // 
 
-window.addEventListener('DOMContentLoaded', event => {
+function bodyLoad(){
 
     // Toggle the side navigation
     const sidebarToggle = document.body.querySelector('#sidebarToggle');
@@ -23,7 +23,7 @@ window.addEventListener('DOMContentLoaded', event => {
         });
     }
 
-});
+}
 
 $("ul.treeRoot li span").on("click", function () {
     if ($(this).parent().hasClass("hasSubMenu")) {
